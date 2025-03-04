@@ -34,7 +34,7 @@
 <body class="bg-[#f4f7ff] font-poppins py-5 h-screen flex items-center justify-center">
     <div class="text-center">
         <h2 class="text-2xl  py-3 rounded-lg bg-gray-200  font-semibold"><span id="hour">00</span>:<span
-                id="minute">00</span>:<span id="second">00</span>:<span id="milisecond">00</span></h2>
+                id="minute">00</span>:<span id="second">00</span>:<span id="milisecond">000</span></h2>
         <div class="mt-8">
             <button class="btn btn-success" id="start">Start</button>
             <button class="btn btn-warning" id="stop">Stop</button>
@@ -71,11 +71,11 @@
                 minute.textContent = (parseInt(minute.textContent) + 1).toString().padStart(2, '0');
                 second.textContent = 0;
             }
-            if(parseInt(milisecond.textContent) === 1000){
+            if(parseInt(milisecond.textContent) === 100){
                 milisecond.textContent = 0;
                 second.textContent = (parseInt(second.textContent) + 1).toString().padStart(2,'0')
             }
-            milisecond.textContent = (parseInt(milisecond.textContent) + 100);
+            milisecond.textContent = (parseInt(milisecond.textContent) + 10).toString().padStart(3, '0');
         }
 
         disabled(false, true, true, true);
