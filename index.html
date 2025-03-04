@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon">
+    <!-- google font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <!-- tailwind and daisyUI cdn  -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.24/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        clifford: '#da373d',
+                    },
+                    fontFamily: {
+                        'poppins': ["Poppins", 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <title>Stopwatch</title>
+</head>
+
+<body class="bg-[#f4f7ff] font-poppins py-5 h-screen flex items-center justify-center">
+    <div class="text-center">
+        <h2 class=" py-3 rounded-lg bg-gray-200 text-2xl font-semibold"><span id="hour">00</span>:<span
+                id="minute">00</span>:<span id="second">00</span></h2>
+        <div class="mt-8">
+            <button class="btn btn-success" id="start">Start</button>
+            <button class="btn btn-warning" id="stop">Stop</button>
+            <button class="btn btn-info" id="resume">Resume</button>
+            <button class="btn btn-error" id="reset">Reset</button>
+        </div>
+    </div>
+
+
+    <script>
+        const hour = document.getElementById('hour');
+        const minute = document.getElementById('minute');
+        const second = document.getElementById('second');
+        const start = document.getElementById('start');
+        const stopp = document.getElementById('stop');
+        const resume = document.getElementById('resume');
+        const reset = document.getElementById('reset');
+
+        let interval;
+        function disabled(param1, param2, param3, param4) {
+            start.disabled = param1;
+            stopp.disabled = param2;
+            resume.disabled = param3;
+            reset.disabled = param4;
+        }
+
+        function increaseSecond() {
+            if (parseInt(minute.textContent) === 59) {
+                hour.textContent = (parseInt(hour.textContent) + 1).toString().padStart(2, '0');
+                minute.textContent = 0;
+            }
+            if (parseInt(second.textContent) === 59) {
+                minute.textContent = (parseInt(minute.textContent) + 1).toString().padStart(2, '0');
+                second.textContent = 0;
+            }
+            second.textContent = (parseInt(second.textContent) + 1).toString().padStart(2,'0');
+        }
+
+        disabled(false, true, true, true);
+        start.addEventListener('click', (event) => {
+            disabled(true, false, true, false);
+            interval = setInterval(increaseSecond, 1000)
+        })
+
+        stopp.addEventListener('click', (event) => {
+            disabled(true, true, false, false);
+            clearInterval(interval)
+        })
+
+        resume.addEventListener('click', (event) => {
+            disabled(true, false, true, false);
+            interval = setInterval(increaseSecond, 1000)
+        })
+
+        reset.addEventListener('click', (event) => {
+            window.location.reload();
+        })
+    </script>
+</body>
+
+</html>
